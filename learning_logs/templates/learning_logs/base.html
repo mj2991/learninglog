@@ -1,0 +1,60 @@
+{% load bootstrap4 %}
+
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Learning Log</title>
+</head>
+
+{% load static %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'learning_logs/style.css' %}">
+
+{% bootstrap_css %}
+{% bootstrap_javascript jquery='full'%}
+<body>
+    <nav class="navbar navbar-expand-md bg-dark navbar-dark mb-4 border">
+        <a class="navbar-brand" href="{% url 'learning_logs:index' %}">Learning log </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse"
+        data-target="#navbarCollapse" aria-controls="navbarCollapse"
+        aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>>
+    <div class="collapse navbar-collapse" id="navbarCollapse"></div>
+    <ul class="navbar-nav mr auto">
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'learning_logs:topics'%}">Topics</a>
+        </li>
+    </ul>
+    <ul class="navbar-nav ml-auto">
+        
+        {% if user.is_authenticated %}
+            <li class="nav-item">
+                <span class="navbar-text">Hello, {{user.username}}</span>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'users:logout'%}">Logout</a>
+            </li>
+            {% else %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'users:register'%}">Register</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link"href="{% url 'users:login'%}">Log in</a>
+                </li>
+        {% endif %}
+    </ul>
+    </nav>
+    <main role="main" class="container">
+        <div class="pb-2 mb-2 border-bottom"></div>
+        {% block page_header %}
+        {% endblock page_header %}
+        <div>
+            {% block content %}{% endblock content %}   
+        </div>  
+    </main>
+</body>
+</html>
+
