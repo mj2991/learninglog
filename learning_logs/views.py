@@ -1,9 +1,10 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from .models import Topic, Entry
 from .forms import TopicForm, EntryForm
 from .views_helper_funs import check_topic_owner
 from django.db.models import Q
+
 
 # Create your views here.
 
@@ -21,7 +22,7 @@ def topics(request):
 @login_required
 def topic(request, topic_id):
     """show topic page with topic_id"""
-    topic = Topic.objects.get(id=topic_id)
+    topic = get_object_or_404(Topic, topic_id)
     #make sure topics belong to current user
     check_topic_owner(topic, request)
     entries = topic.entry_set.order_by('-date_added')
