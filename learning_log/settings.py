@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
+import django_heroku
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -31,14 +32,14 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    #my apps
+    # my apps
     'learning_logs',
     'users',
 
-    #third-party apps
+    # third-party apps
     'bootstrap4',
 
-    #django default apps
+    # django default apps
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -128,17 +129,15 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, "static/")
 
-# My settings 
+# My settings
 LOGIN_REDIRECT_URL = '/'
 LOGIN_URL = 'users:login'
 
 
-#Heroku settings
-import django_heroku
+# Heroku settings
 django_heroku.settings(locals())
 
 if os.environ.get('DEBUG') == 'TRUE':
     DEBUG = True
 elif os.environ.get('DEBUG') == 'FALSE':
     DEBUG = False
-

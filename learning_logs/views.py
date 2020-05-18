@@ -22,7 +22,7 @@ def topics(request):
 @login_required
 def topic(request, topic_id):
     """show topic page with topic_id"""
-    topic = get_object_or_404(Topic, topic_id)
+    topic = get_object_or_404(Topic, id=topic_id)
     #make sure topics belong to current user
     check_topic_owner(topic, request)
     entries = topic.entry_set.order_by('-date_added')
